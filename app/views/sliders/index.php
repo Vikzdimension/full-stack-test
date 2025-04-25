@@ -1,8 +1,8 @@
 <?php
-
 $message = $message ?? 'No message passed to view.';
-
+$sliders = $sliders ?? [];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,12 +14,11 @@ $message = $message ?? 'No message passed to view.';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body>
     <div class="container mt-5">
-        <h1 class="text-primary"><?= $message ?? 'Welcome to Sliders Page'; ?></h1>
+        <h1 class="text-primary"><?= htmlspecialchars($message) ?></h1>
 
         <div class="row">
             <?php if (!empty($sliders)): ?>

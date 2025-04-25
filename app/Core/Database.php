@@ -55,10 +55,10 @@ class Database
     {
         $query = "SHOW TABLES LIKE 'sliders'";
         $stmt = $this->pdo->query($query);
-
+    
         if ($stmt->rowCount() == 0) {
             echo "Table 'sliders' does not exist. Creating it now...\n";
-
+    
             $createTableQuery = "
                 CREATE TABLE sliders (
                     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -68,11 +68,33 @@ class Database
                     status ENUM('active', 'inactive') DEFAULT 'active'
                 );
             ";
-
+    
             $this->pdo->exec($createTableQuery);
             echo "Table 'sliders' created successfully.\n";
+    
+            $this->insertDefaultSliders();
         } else {
             echo "Table 'sliders' already exists.\n";
+    
+            $this->insertDefaultSliders();
         }
     }
+    
+    private function insertDefaultSliders()
+    {
+        $query = "SELECT COUNT(*) FROM sliders";
+        $stmt = $this->pdo->query($query);
+        $count = $stmt->fetchColumn();
+    
+        if ($count == 0) {
+            $sql = "INSERT INTO sliders (title, image, status, description) VALUES 
+                    ('Communication', 'DL-Communication.jpg', 'active', 'This slider highlights communication-related content for our platform.'),
+                    ('Learning', 'DL-Learning-1.jpg', 'inactive', 'A slider related to learning resources, currently inactive.'),
+                    ('Technology', 'DL-Technology.jpg', 'active', 'Technology slider showcasing the latest in tech innovations.')";
+    
+            $this->pdo->exec($sql);
+            echo "Default sliders inserted successfully.\n";
+        }
+    }
+       
 }

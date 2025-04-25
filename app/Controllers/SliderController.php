@@ -3,14 +3,22 @@
 namespace App\Controllers;
 
 use App\Models\Slider;
-use App\Core\Controller;
+use App\Core\View;
 
-class SliderController extends Controller
+class SliderController
 {
+    private $sliderModel;
+
+    public function __construct()
+    {
+        $this->sliderModel = new Slider();
+    }
+
     public function index()
     {
-        $sliderModel = new Slider();
-        $sliders = $sliderModel->getAllSliders();
+        $this->sliderModel->insertDefaultSliders();
+
+        $sliders = $this->sliderModel->getAllSliders();
 
         if (empty($sliders)) {
             $message = 'No sliders available';
@@ -20,9 +28,9 @@ class SliderController extends Controller
 
         $data = [
             'message' => $message,
-            'sliders' => $sliders
+            'sliders' => $sliders,
         ];
 
-        $this->view('sliders/index', $data);
+        View::render('sliders/index', $data);
     }
 }
