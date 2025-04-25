@@ -33,6 +33,8 @@ class Database
         } catch (PDOException $e) {
             throw new PDOException("Database connection failed: " . $e->getMessage());
         }
+
+        $this->createSlidersTableIfNeeded();
     }
 
     public static function getInstance()
@@ -47,4 +49,30 @@ class Database
     private function __clone() {}
 
     public function __wakeup() {}
+
+
+    private function createSlidersTableIfNeeded()
+    {
+        $query = "SHOW TABLES LIKE 'sliders'";
+        $stmt = $this->pdo->query($query);
+
+        if ($stmt->rowCount() == 0) {
+            echo "Table 'sliders' does not exist. Creating it now...\n";
+
+            $createTableQuery = "
+                CREATE TABLE sliders (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    title VARCHAR(255) NOT NULL,
+                    description TEXT NOT NULL,
+                    image VARCHAR(255) NOT NULL,
+                    status ENUM('active', 'inactive') DEFAULT 'active'
+                );
+            ";
+
+            $this->pdo->exec($createTableQuery);
+            echo "Table 'sliders' created successfully.\n";
+        } else {
+            echo "Table 'sliders' already exists.\n";
+        }
+    }
 }
