@@ -80,7 +80,7 @@
                             <?php if (empty($data['sliders'])): ?>
                             <tr>
                                 <td colspan="7" class="text-center py-4">
-                                    No sliders found. <a href="slider-create.php">Create one now</a>.
+                                    No sliders found. <a href="/sliders/create">Create one now</a>.
                                 </td>
                             </tr>
                             <?php endif ?>

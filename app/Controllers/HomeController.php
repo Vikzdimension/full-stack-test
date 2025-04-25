@@ -13,7 +13,7 @@ class HomeController extends Controller{
         $sliderModel = new Slider();
         $sliderModel->insertDefaultSliders();
 
-        $sliders = $sliderModel->getAllSliders();
+        $sliders = $sliderModel->getActiveSliders();
 
         if (empty($sliders)) {
             $message = 'No sliders available';

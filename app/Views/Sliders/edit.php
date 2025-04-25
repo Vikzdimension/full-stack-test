@@ -10,7 +10,7 @@ $slider = $data['slider'];
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Edit Slider</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body class="bg-light">
@@ -28,7 +28,7 @@ $slider = $data['slider'];
     <div class="container">
         <nav aria-label="breadcrumb" class="mb-3">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="sliders.php">Sliders</a></li>
+                <li class="breadcrumb-item"><a href="/sliders">Sliders</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Edit Slider</li>
             </ol>
         </nav>
