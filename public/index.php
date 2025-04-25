@@ -41,7 +41,7 @@ $controller->$method();
 
 <body class="bg-light">
     <div class="container">
-        <h1 class="text-primary"> <?= $message ?></h1>
+        <h1 class="text-primary"> <?= $message ?? 'Welcome!' ?></h1>
 
         <p> This is the view rendered using MVC</p>
     </div>

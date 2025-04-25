@@ -16,8 +16,8 @@ class Controller
     }
 
     public function view($view, $data = []){
-        $viewPath = ".../views/" . $view . ".php";
-        dd($viewPath);
+        $viewPath = "../views/" . $view . ".php";
+        // dd($viewPath);
         if(file_exists($viewPath)){
             extract($data);
             require_once $viewPath;

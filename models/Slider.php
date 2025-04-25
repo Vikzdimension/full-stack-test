@@ -18,3 +18,5 @@ class Slider extends Model
         $stmt->bindParam(':image', $data['image']);
         return $stmt->execute();
     }   
+
+}
