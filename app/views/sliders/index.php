@@ -1,51 +1,98 @@
-<?php
-$message = $message ?? 'No message passed to view.';
-$sliders = $sliders ?? [];
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Slider Page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Manage Sliders</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwF…" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
-    <div class="container mt-5">
-        <h1 class="text-primary"><?= htmlspecialchars($message) ?></h1>
+<body class="bg-light">
 
-        <div class="row">
-            <?php if (!empty($sliders)): ?>
-            <?php foreach ($sliders as $slider): ?>
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="<?= '/files/images/' . htmlspecialchars($slider['image']) ?>" class="card-img-top"
-                        alt="Slider Image">
+    <nav class="navbar navbar-light bg-white shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="../index.php">WPoets Test</a>
+            <div class="ms-auto">
+                <a href="/" class="btn btn-outline-secondary me-2">View Public</a>
+                <a href="/sliders/create" class="btn btn-primary">+ New Slider</a>
+            </div>
+        </div>
+    </nav>
 
-                    <div class="card-body">
-                        <h5 class="card-title"><?= htmlspecialchars($slider['title']) ?></h5>
+    <div class="container">
+        <?php if (!empty($data['message'])): ?>
+        <div class="alert alert-success alert-dismissible fade show">
+            <?= htmlspecialchars($data['message']) ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <?php endif ?>
 
-                        <p class="card-text"><?= htmlspecialchars($slider['description']) ?></p>
+        <h1 class="mb-4">All Sliders</h1>
 
-                        <p class="text-muted">Status: <?= htmlspecialchars($slider['status']) ?></p>
-                    </div>
+        <div class="card shadow-sm">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>#</th>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                                <th>Status</th>
+                                <th class="text-end">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($data['sliders'] as $i => $s): ?>
+                            <tr>
+                                <td><?= $i + 1 ?></td>
+                                <td><?= htmlspecialchars($s['title']) ?></td>
+                                <td><?= htmlspecialchars($s['description']) ?></td>
+                                <td>
+                                    <img src="/files/images/<?= htmlspecialchars($s['image']) ?>" alt=""
+                                        class="img-thumbnail" style="max-width:80px;">
+                                </td>
+                                <td>
+                                    <span
+                                        class="badge <?= $s['status'] === 'active' ? 'bg-success' : 'bg-secondary' ?>">
+                                        <?= ucfirst(htmlspecialchars($s['status'])) ?>
+                                    </span>
+                                </td>
+                                <td class="text-end">
+                                    <a href="/sliders/edit/<?= htmlspecialchars($s['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                                        class="btn btn-secondary btn-sm me-2">Edit</a>
+                                    <form
+                                        action="/sliders/delete/<?= htmlspecialchars($s['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>"
+                                        method="POST" style="display: inline;"
+                                        onsubmit="return confirm('Delete this slider?');">
+                                        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php endforeach ?>
+
+                            <?php if (empty($data['sliders'])): ?>
+                            <tr>
+                                <td colspan="7" class="text-center py-4">
+                                    No sliders found. <a href="slider-create.php">Create one now</a>.
+                                </td>
+                            </tr>
+                            <?php endif ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <?php endforeach; ?>
-            <?php else: ?>
-            <p>No sliders available at the moment.</p>
-            <?php endif; ?>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
 </body>
 

@@ -74,7 +74,7 @@ class Database
     
             $this->insertDefaultSliders();
         } else {
-            echo "Table 'sliders' already exists.\n";
+            // echo "Table 'sliders' already exists.\n";
     
             $this->insertDefaultSliders();
         }
