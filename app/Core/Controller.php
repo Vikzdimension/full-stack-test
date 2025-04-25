@@ -2,7 +2,6 @@
 
 namespace App\Core;
 
-require_once __DIR__ . '/../helpers/helpers.php';
 
 class Controller
 {
