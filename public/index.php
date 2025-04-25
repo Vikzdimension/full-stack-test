@@ -1,24 +1,27 @@
 <?php
 
-require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
-echo "DB Connection Successful!";
+use App\Controllers\SliderController;
+
 
 $uri = $_GET['uri'] ?? 'slider/index';
 
-require_once __DIR__ . '/../controllers/SliderController.php';
-
 [$controllerName, $method] = explode('/', $uri);
-// var_dump($controllerName, $method);
 
-$controllerName = ucfirst($controllerName) . 'Controller';
-// var_dump($controllerName, $method);
+$controllerClass = 'App\\Controllers\\' . ucfirst($controllerName) . 'Controller';
 
+if (class_exists($controllerClass)) {
+    $controller = new $controllerClass();
 
-$controller = new $controllerName();
-// var_dump($method);
-
-$controller->$method();
+    if (method_exists($controller, $method)) {
+        $controller->$method();
+    } else {
+        throw new Exception("Method $method not found in $controllerClass");
+    }
+} else {
+    throw new Exception("Controller class $controllerClass not found");
+}
 
 ?>
 
