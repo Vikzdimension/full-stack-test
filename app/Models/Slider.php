@@ -1,22 +1,22 @@
 <?php
 
-require_once '../core/Model.php';
+namespace App\Models;
 
-class Slider extends Model
+use App\Core\Database;
+
+class Slider
 {
-    public function getSliders()
+    private $db;
+
+    public function __construct()
     {
-        $stmt = $this->db->prepare("SELECT * FROM sliders");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->db = Database::getInstance();
     }
 
-    public function addSlider($data)
+    public function getAllSliders()
     {
-        $stmt = $this->db->prepare("INSERT INTO sliders (title, image) VALUES (:title, :image)");
-        $stmt->bindParam(':title', $data['title']);
-        $stmt->bindParam(':image', $data['image']);
-        return $stmt->execute();
-    }   
-
+        $stmt = $this->db->prepare("SELECT title, image, status, description FROM sliders");
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
