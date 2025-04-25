@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../core/helpers/helpers.php';
+
 class Controller
 {
     public function model($model)
@@ -14,12 +16,11 @@ class Controller
     }
 
     public function view($view, $data = []){
-    {
-        $viewPath = ".../models/" . $view . ".php";
-
+        $viewPath = ".../views/" . $view . ".php";
+        dd($viewPath);
         if(file_exists($viewPath)){
-            $extract($data);
-            require_once $viewPath
+            extract($data);
+            require_once $viewPath;
         }else{
             throw new Exception("View file not found: " . $viewPath);
         }

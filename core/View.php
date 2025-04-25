@@ -1,7 +1,7 @@
 <?php
 
 class View{
-    public function render($view, $data = []){
+    public static function render($view, $data = []){
         $view_path = "../views/" . $view. ".php";
 
         if(file_exists($view_path)){
@@ -9,6 +9,6 @@ class View{
             require_once $view_path;
         }else{
             throw new Exception("View file not found: " . $view_path);
-        }
+        }   
     }
 }
