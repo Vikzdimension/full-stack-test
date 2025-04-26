@@ -94,7 +94,7 @@
     <script>
     $(function() {
         let current = 0;
-        const total = $('.slider-item').length;
+        const total = $('.slider-container .slider-item').length;
         let interval;
 
         for (let i = 0; i < total; i++) {
