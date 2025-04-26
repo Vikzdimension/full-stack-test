@@ -12,6 +12,7 @@ I spent approximately several hours completing the coding test. Given more time,
 - Optimizing image uploads with resizing and compression gzip and HTPP headers.
 - Enhancing the slider UI with smoother animations and touch/swipe support for mobile.
 - Adding caching mechanisms to improve performance.
+- Given more time, I would have deployed this assessment to a live server to showcase its functionality in a real-world environment..
 
 ## How would you track down a performance issue in production? Have you ever had to do this?
 
